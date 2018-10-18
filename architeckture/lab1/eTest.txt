@@ -1,0 +1,786 @@
+
+Eloquent JavaScript
+3rd edition
+Marijn Haverbeke
+Copyright © 2018 by Marijn Haverbeke
+This work is licensed under a Creative Commons attribution-noncommercial
+license (http://creativecommons.org/licenses/by-nc/3.0/). All code in the
+book may also be considered licensed under an MIT license (http://opensource.
+org/licenses/MIT).
+The illustrations are contributed by various artists: Cover and chapter illustrations
+by Madalina Tantareanu. Pixel art in Chapters 7 and 16 by Antonio
+Perdomo Pastor. Regular expression diagrams in Chapter 9 generated with
+regexper.com by Jeff Avallone. Village photograph in Chapter 11 by Fabrice
+Creuzot. Game concept for Chapter 15 by Thomas Palef.
+The third edition of Eloquent JavaScript was made possible by 325 financial
+backers.
+You can buy a print version of this book, with an extra bonus chapter included,
+printed by No Starch Press at https://www.amazon.com/Eloquent-JavaScript2nd-Ed-Introduction/dp/1593275846.
+i
+Contents
+Introduction 1
+On programming . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 2
+Why language matters . . . . . . . . . . . . . . . . . . . . . . . . . . . 3
+What is JavaScript? . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 6
+Code, and what to do with it . . . . . . . . . . . . . . . . . . . . . . . 7
+Overview of this book . . . . . . . . . . . . . . . . . . . . . . . . . . . . 8
+Typographic conventions . . . . . . . . . . . . . . . . . . . . . . . . . . 8
+1 Values, Types, and Operators 10
+Values . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 10
+Numbers . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 11
+Strings . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 13
+Unary operators . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 15
+Boolean values . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 16
+Empty values . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 18
+Automatic type conversion . . . . . . . . . . . . . . . . . . . . . . . . . 18
+Summary . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 20
+2 Program Structure 22
+Expressions and statements . . . . . . . . . . . . . . . . . . . . . . . . 22
+Bindings . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 23
+Binding names . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 25
+The environment . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 25
+Functions . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 26
+The console.log function . . . . . . . . . . . . . . . . . . . . . . . . . . 26
+Return values . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 27
+Control flow . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 27
+Conditional execution . . . . . . . . . . . . . . . . . . . . . . . . . . . . 28
+while and do loops . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 30
+Indenting Code . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 31
+for loops . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 32
+Breaking Out of a Loop . . . . . . . . . . . . . . . . . . . . . . . . . . 33
+ii
+Updating bindings succinctly . . . . . . . . . . . . . . . . . . . . . . . 34
+Dispatching on a value with switch . . . . . . . . . . . . . . . . . . . . 34
+Capitalization . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 35
+Comments . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 36
+Summary . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 37
+Exercises . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 37
+3 Functions 39
+Defining a function . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 39
+Bindings and scopes . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 40
+Functions as values . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 42
+Declaration notation . . . . . . . . . . . . . . . . . . . . . . . . . . . . 43
+Arrow functions . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 44
+The call stack . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 45
+Optional Arguments . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 46
+Closure . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 47
+Recursion . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 49
+Growing functions . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 51
+Functions and side effects . . . . . . . . . . . . . . . . . . . . . . . . . 54
+Summary . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 55
+Exercises . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 55
+4 Data Structures: Objects and Arrays 57
+The weresquirrel . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 57
+Data sets . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 58
+Properties . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 59
+Methods . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 60
+Objects . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 61
+Mutability . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 63
+The lycanthrope’s log . . . . . . . . . . . . . . . . . . . . . . . . . . . . 64
+Computing correlation . . . . . . . . . . . . . . . . . . . . . . . . . . . 66
+Array loops . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 68
+The final analysis . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 68
+Further arrayology . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 70
+Strings and their properties . . . . . . . . . . . . . . . . . . . . . . . . 72
+Rest parameters . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 74
+The Math object . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 75
+Destructuring . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 76
+JSON . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 77
+Summary . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 78
+iii
+Exercises . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 79
+5 Higher-Order Functions 82
+Abstraction . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 83
+Abstracting repetition . . . . . . . . . . . . . . . . . . . . . . . . . . . 83
+Higher-order functions . . . . . . . . . . . . . . . . . . . . . . . . . . . 85
+Script data set . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 86
+Filtering arrays . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 87
+Transforming with map . . . . . . . . . . . . . . . . . . . . . . . . . . . 88
+Summarizing with reduce . . . . . . . . . . . . . . . . . . . . . . . . . . 88
+Composability . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 90
+Strings and character codes . . . . . . . . . . . . . . . . . . . . . . . . 91
+Recognizing text . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 93
+Summary . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 95
+Exercises . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 95
+6 The Secret Life of Objects 97
+Encapsulation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 97
+Methods . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 98
+Prototypes . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 99
+Classes . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 101
+Class notation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 102
+Overriding derived properties . . . . . . . . . . . . . . . . . . . . . . . 103
+Maps . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 104
+Polymorphism . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 106
+Symbols . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 107
+The iterator interface . . . . . . . . . . . . . . . . . . . . . . . . . . . . 108
+Getters, setters, and statics . . . . . . . . . . . . . . . . . . . . . . . . 110
+Inheritance . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 112
+The instanceof operator . . . . . . . . . . . . . . . . . . . . . . . . . . . 113
+Summary . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 114
+Exercises . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 115
+7 Project: A Robot 117
+Meadowfield . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 117
+The task . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 119
+Persistent data . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 121
+Simulation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 122
+The mail truck’s route . . . . . . . . . . . . . . . . . . . . . . . . . . . 124
+Pathfinding . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 124
+iv
+Exercises . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 126
+8 Bugs and Errors 128
+Language . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 128
+Strict mode . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 129
+Types . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 130
+Testing . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 131
+Debugging . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 132
+Error propagation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 134
+Exceptions . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 135
+Cleaning up after exceptions . . . . . . . . . . . . . . . . . . . . . . . . 136
+Selective catching . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 138
+Assertions . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 140
+Summary . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 141
+Exercises . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 142
+9 Regular Expressions 143
+Creating a regular expression . . . . . . . . . . . . . . . . . . . . . . . 143
+Testing for matches . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 144
+Sets of characters . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 144
+Repeating parts of a pattern . . . . . . . . . . . . . . . . . . . . . . . . 146
+Grouping subexpressions . . . . . . . . . . . . . . . . . . . . . . . . . . 147
+Matches and groups . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 147
+The Date class . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 148
+Word and string boundaries . . . . . . . . . . . . . . . . . . . . . . . . 150
+Choice patterns . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 150
+The mechanics of matching . . . . . . . . . . . . . . . . . . . . . . . . 151
+Backtracking . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 152
+The replace method . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 154
+Greed . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 155
+Dynamically creating RegExp objects . . . . . . . . . . . . . . . . . . 157
+The search method . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 157
+The lastIndex property . . . . . . . . . . . . . . . . . . . . . . . . . . . 158
+Parsing an INI file . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 160
+International characters . . . . . . . . . . . . . . . . . . . . . . . . . . . 162
+Summary . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 163
+Exercises . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 165
+10 Modules 167
+Modules . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 167
+v
+Packages . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 168
+Improvised modules . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 169
+Evaluating data as code . . . . . . . . . . . . . . . . . . . . . . . . . . 170
+CommonJS . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 171
+ECMAScript modules . . . . . . . . . . . . . . . . . . . . . . . . . . . . 173
+Building and bundling . . . . . . . . . . . . . . . . . . . . . . . . . . . 175
+Module design . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 176
+Summary . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 178
+Exercises . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 178
+11 Asynchronous Programming 180
+Asynchronicity . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 180
+Crow tech . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 182
+Callbacks . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 183
+Promises . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 185
+Failure . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 186
+Networks are hard . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 188
+Collections of promises . . . . . . . . . . . . . . . . . . . . . . . . . . . 190
+Network flooding . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 191
+Message routing . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 192
+Async functions . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 194
+Generators . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 196
+The event loop . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 197
+Asynchronous bugs . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 199
+Summary . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 200
+Exercises . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 201
+12 Project: A Programming Language 202
+Parsing . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 202
+The evaluator . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 207
+Special forms . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 208
+The environment . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 210
+Functions . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 211
+Compilation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 212
+Cheating . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 213
+Exercises . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 214
+13 JavaScript and the Browser 216
+Networks and the Internet . . . . . . . . . . . . . . . . . . . . . . . . . 216
+The Web . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 218
+vi
+HTML . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 218
+HTML and JavaScript . . . . . . . . . . . . . . . . . . . . . . . . . . . 221
+In the sandbox . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 222
+Compatibility and the browser wars . . . . . . . . . . . . . . . . . . . 222
+14 The Document Object Model 224
+Document structure . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 224
+Trees . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 225
+The standard . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 226
+Moving through the tree . . . . . . . . . . . . . . . . . . . . . . . . . . 227
+Finding elements . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 228
+Changing the document . . . . . . . . . . . . . . . . . . . . . . . . . . 229
+Creating nodes . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 230
+Attributes . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 232
+Layout . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 233
+Styling . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 235
+Cascading styles . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 236
+Query selectors . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 237
+Positioning and animating . . . . . . . . . . . . . . . . . . . . . . . . . 238
+Summary . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 241
+Exercises . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 241
+15 Handling Events 243
+Event handlers . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 243
+Events and DOM nodes . . . . . . . . . . . . . . . . . . . . . . . . . . 244
+Event objects . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 245
+Propagation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 245
+Default actions . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 247
+Key events . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 247
+Pointer events . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 249
+Scroll events . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 253
+Focus events . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 254
+Load event . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 255
+Events and the event loop . . . . . . . . . . . . . . . . . . . . . . . . . 255
+Timers . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 257
+Debouncing . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 257
+Summary . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 259
+Exercises . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 259
+vii
+16 Project: A Platform Game 261
+The game . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 261
+The technology . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 262
+Levels . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 262
+Reading a level . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 263
+Actors . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 265
+Encapsulation as a burden . . . . . . . . . . . . . . . . . . . . . . . . . 268
+Drawing . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 269
+Motion and collision . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 274
+Actor updates . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 277
+Tracking keys . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 279
+Running the game . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 280
+Exercises . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 282
+17 Drawing on Canvas 284
+SVG . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 284
+The canvas element . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 285
+Lines and surfaces . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 286
+Paths . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 287
+Curves . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 289
+Drawing a pie chart . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 291
+Text . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 292
+Images . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 293
+Transformation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 295
+Storing and clearing transformations . . . . . . . . . . . . . . . . . . . 297
+Back to the game . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 299
+Choosing a graphics interface . . . . . . . . . . . . . . . . . . . . . . . 304
+Summary . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 305
+Exercises . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 306
+18 HTTP and Forms 308
+The protocol . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 308
+Browsers and HTTP . . . . . . . . . . . . . . . . . . . . . . . . . . . . 310
+Fetch . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 312
+HTTP sandboxing . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 313
+Appreciating HTTP . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 314
+Security and HTTPS . . . . . . . . . . . . . . . . . . . . . . . . . . . . 314
+Form fields . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 315
+Focus . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 317
+Disabled fields . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 318
+viii
+The form as a whole . . . . . . . . . . . . . . . . . . . . . . . . . . . . 318
+Text fields . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 320
+Checkboxes and radio buttons . . . . . . . . . . . . . . . . . . . . . . . 321
+Select fields . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 322
+File fields . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 323
+Storing data client-side . . . . . . . . . . . . . . . . . . . . . . . . . . . 325
+Summary . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 327
+Exercises . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 328
+19 Project: A Pixel Art Editor 330
+Components . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 330
+The state . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 332
+DOM building . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 333
+The canvas . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 334
+The application . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 337
+Drawing tools . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 339
+Saving and loading . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 342
+Undo history . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 345
+Let’s draw . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 346
+Why is this so hard? . . . . . . . . . . . . . . . . . . . . . . . . . . . . 347
+Exercises . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 348
+20 Node.js 350
+Background . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 350
+The node command . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 351
+Modules . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 352
+Installing with NPM . . . . . . . . . . . . . . . . . . . . . . . . . . . . 353
+The file system module . . . . . . . . . . . . . . . . . . . . . . . . . . . 355
+The HTTP module . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 357
+Streams . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 359
+A file server . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 361
+Summary . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 366
+Exercises . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 367
+21 Project: Skill-Sharing Website 369
+Design . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 369
+Long polling . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 370
+HTTP interface . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 371
+The server . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 373
+The client . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 380
+ix
+Exercises . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 387
+Exercise Hints 388
+Program Structure . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 388
+Functions . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 389
+Data Structures: Objects and Arrays . . . . . . . . . . . . . . . . . . . 390
+Higher-Order Functions . . . . . . . . . . . . . . . . . . . . . . . . . . . 392
+The Secret Life of Objects . . . . . . . . . . . . . . . . . . . . . . . . . 393
+Project: A Robot . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 394
+Bugs and Errors . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 395
+Regular Expressions . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 395
+Modules . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 396
+Asynchronous Programming . . . . . . . . . . . . . . . . . . . . . . . . 398
+Project: A Programming Language . . . . . . . . . . . . . . . . . . . . 399
+The Document Object Model . . . . . . . . . . . . . . . . . . . . . . . 400
+Handling Events . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 400
+Project: A Platform Game . . . . . . . . . . . . . . . . . . . . . . . . . 402
+Drawing on Canvas . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 402
+HTTP and Forms . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 404
+Project: A Pixel Art Editor . . . . . . . . . . . . . . . . . . . . . . . . 406
+Node.js . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 408
+Project: Skill-Sharing Website . . . . . . . . . . . . . . . . . . . . . . . 409
+x
+“We think we are creating the system for our own purposes. We
+believe we are making it in our own image... But the computer is
+not really like us. It is a projection of a very slim part of ourselves:
+that portion devoted to logic, order, rule, and clarity.”
+—Ellen Ullman, Close to the Machine: Technophilia and its
+Discontents
+Introduction
+This is a book about instructing computers. Computers are about as common
+as screwdrivers today, but they are quite a bit more complex, and making them
+do what you want them to do isn’t always easy.
+If the task you have for your computer is a common, well-understood one,
+such as showing you your email or acting like a calculator, you can open the
+appropriate application and get to work. But for unique or open-ended tasks,
+there probably is no application.
+That is where programming may come in. Programming is the act of constructing
+a program—a set of precise instructions telling a computer what to do.
+Because computers are dumb, pedantic beasts, programming is fundamentally
+tedious and frustrating.
+Fortunately, if you can get over that fact, and maybe even enjoy the rigor
+of thinking in terms that dumb machines can deal with, programming can be
+rewarding. It allows you to do things in seconds that would take forever by
+hand. It is a way to make your computer tool do things that it couldn’t do
+before. And it provides a wonderful exercise in abstract thinking.
+Most programming is done with programming languages. A programming
+language is an artificially constructed language used to instruct computers. It
+is interesting that the most effective way we’ve found to communicate with a
+computer borrows so heavily from the way we communicate with each other.
+Like human languages, computer languages allow words and phrases to be
+combined in new ways, making it possible to express ever new concepts.
+At one point language-based interfaces, such as the BASIC and DOS prompts
+of the 1980s and 1990s, were the main method of interacting with computers.
+They have largely been replaced with visual interfaces, which are easier to learn
+but offer less freedom. Computer languages are still there, if you know where
+to look. One such language, JavaScript, is built into every modern web browser
+and is thus available on almost every device.
+This book will try to make you familiar enough with this language to do
+useful and amusing things with it.
+1
+On programming
+Besides explaining JavaScript, I will introduce the basic principles of programming.
+Programming, it turns out, is hard. The fundamental rules are simple
+and clear, but programs built on top of these rules tend to become complex
+enough to introduce their own rules and complexity. You’re building your own
+maze, in a way, and you might just get lost in it.
+There will be times when reading this book feels terribly frustrating. If you
+are new to programming, there will be a lot of new material to digest. Much of
+this material will then be combined in ways that require you to make additional
+connections.
+It is up to you to make the necessary effort. When you are struggling to follow
+the book, do not jump to any conclusions about your own capabilities. You are
+fine—you just need to keep at it. Take a break, reread some material, and make
+sure you read and understand the example programs and exercises. Learning is
+hard work, but everything you learn is yours and will make subsequent learning
+easier.
+When action grows unprofitable, gather information; when information
+grows unprofitable, sleep.
+—Ursula K. Le Guin, The Left Hand of Darkness
+A program is many things. It is a piece of text typed by a programmer,
+it is the directing force that makes the computer do what it does, it is data
+in the computer’s memory, yet it controls the actions performed on this same
+memory. Analogies that try to compare programs to objects we are familiar
+with tend to fall short. A superficially fitting one is that of a machine—lots of
+separate parts tend to be involved, and to make the whole thing tick, we have
+to consider the ways in which these parts interconnect and contribute to the
+operation of the whole.
+A computer is a physical machine that acts as a host for these immaterial
+machines. Computers themselves can do only stupidly straightforward things.
+The reason they are so useful is that they do these things at an incredibly
+high speed. A program can ingeniously combine an enormous number of these
+simple actions to do very complicated things.
+A program is a building of thought. It is costless to build, it is weightless,
+and it grows easily under our typing hands.
+But without care, a program’s size and complexity will grow out of control,
+confusing even the person who created it. Keeping programs under control is
+the main problem of programming. When a program works, it is beautiful. The
+2
+art of programming is the skill of controlling complexity. The great program
+is subdued—made simple in its complexity.
+Some programmers believe that this complexity is best managed by using
+only a small set of well-understood techniques in their programs. They have
+composed strict rules (“best practices”) prescribing the form programs should
+have and carefully stay within their safe little zone.
+This is not only boring, it is ineffective. New problems often require new
+solutions. The field of programming is young and still developing rapidly, and
+it is varied enough to have room for wildly different approaches. There are
+many terrible mistakes to make in program design, and you should go ahead
+and make them so that you understand them. A sense of what a good program
+looks like is developed in practice, not learned from a list of rules.
+Why language matters
+In the beginning, at the birth of computing, there were no programming languages.
+Programs looked something like this:
+00110001 00000000 00000000
+00110001 00000001 00000001
+00110011 00000001 00000010
+01010001 00001011 00000010
+00100010 00000010 00001000
+01000011 00000001 00000000
+01000001 00000001 00000001
+00010000 00000010 00000000
+01100010 00000000 00000000
+That is a program to add the numbers from 1 to 10 together and print out
+the result: 1 + 2 + ... + 10 = 55. It could run on a simple, hypothetical
+machine. To program early computers, it was necessary to set large arrays of
+switches in the right position or punch holes in strips of cardboard and feed
+them to the computer. You can probably imagine how tedious and error-prone
+this procedure was. Even writing simple programs required much cleverness
+and discipline. Complex ones were nearly inconceivable.
+Of course, manually entering these arcane patterns of bits (the ones and
+zeros) did give the programmer a profound sense of being a mighty wizard.
+And that has to be worth something in terms of job satisfaction.
+Each line of the previous program contains a single instruction. It could be
+written in English like this:
+3
+1. Store the number 0 in memory location 0.
+2. Store the number 1 in memory location 1.
+3. Store the value of memory location 1 in memory location 2.
+4. Subtract the number 11 from the value in memory location 2.
+5. If the value in memory location 2 is the number 0, continue with instruction
+9.
+6. Add the value of memory location 1 to memory location 0.
+7. Add the number 1 to the value of memory location 1.
+8. Continue with instruction 3.
+9. Output the value of memory location 0.
+Although that is already more readable than the soup of bits, it is still rather
+obscure. Using names instead of numbers for the instructions and memory
+locations helps.
+Set “total” to 0.
+Set “count” to 1.
+[loop]
+Set “compare” to “count”.
+Subtract 11 from “compare”.
+If “compare” is zero, continue at [end].
+Add “count” to “total”.
+Add 1 to “count”.
+Continue at [loop].
+[end]
+Output “total”.
+Can you see how the program works at this point? The first two lines give
+two memory locations their starting values: total will be used to build up the
+result of the computation, and count will keep track of the number that we are
+currently looking at. The lines using compare are probably the weirdest ones.
+The program wants to see whether count is equal to 11 to decide whether it
+can stop running. Because our hypothetical machine is rather primitive, it can
+only test whether a number is zero and make a decision based on that. So it
+uses the memory location labeled compare to compute the value of count - 11
+and makes a decision based on that value. The next two lines add the value
+4
+of count to the result and increment count by 1 every time the program has
+decided that count is not 11 yet.
+Here is the same program in JavaScript:
+let total = 0, count = 1;
+while (count <= 10) {
+total += count;
+count += 1;
+}
+console.log(total);
+// → 55
+This version gives us a few more improvements. Most important, there is
+no need to specify the way we want the program to jump back and forth
+anymore. The while construct takes care of that. It continues executing the
+block (wrapped in braces) below it as long as the condition it was given holds.
+That condition is count <= 10, which means “count is less than or equal to 10”.
+We no longer have to create a temporary value and compare that to zero, which
+was just an uninteresting detail. Part of the power of programming languages
+is that they can take care of uninteresting details for us.
+At the end of the program, after the while construct has finished, the console
+.log operation is used to write out the result.
+Finally, here is what the program could look like if we happened to have
+the convenient operations range and sum available, which respectively create a
+collection of numbers within a range and compute the sum of a collection of
+numbers:
+console.log(sum(range(1, 10)));
+// → 55
+The moral of this story is that the same program can be expressed in both
+long and short, unreadable and readable ways. The first version of the program
+was extremely obscure, whereas this last one is almost English: log the sum of
+the range of numbers from 1 to 10. (We will see in later chapters how to define
+operations like sum and range.)
+A good programming language helps the programmer by allowing them to
+talk about the actions that the computer has to perform on a higher level.
+It helps omit details, provides convenient building blocks (such as while and
+console.log), allows you to define your own building blocks (such as sum and
+range), and makes those blocks easy to compose.
+5
+What is JavaScript?
+JavaScript was introduced in 1995 as a way to add programs to web pages in the
+Netscape Navigator browser. The language has since been adopted by all other
+major graphical web browsers. It has made modern web applications possible—
+applications with which you can interact directly without doing a page reload
+for every action. JavaScript is also used in more traditional websites to provide
+various forms of interactivity and cleverness.
+It is important to note that JavaScript has almost nothing to do with the
+programming language named Java. The similar name was inspired by marketing
+considerations rather than good judgment. When JavaScript was being
+introduced, the Java language was being heavily marketed and was gaining
+popularity. Someone thought it was a good idea to try to ride along on this
+success. Now we are stuck with the name.
+After its adoption outside of Netscape, a standard document was written
+to describe the way the JavaScript language should work so that the various
+pieces of software that claimed to support JavaScript were actually talking
+about the same language. This is called the ECMAScript standard, after the
+Ecma International organization that did the standardization. In practice, the
+terms ECMAScript and JavaScript can be used interchangeably—they are two
+names for the same language.
+There are those who will say terrible things about JavaScript. Many of these
+things are true. When I was required to write something in JavaScript for the
+first time, I quickly came to despise it. It would accept almost anything I typed
+but interpret it in a way that was completely different from what I meant. This
+had a lot to do with the fact that I did not have a clue what I was doing, of
+course, but there is a real issue here: JavaScript is ridiculously liberal in what
+it allows. The idea behind this design was that it would make programming in
+JavaScript easier for beginners. In actuality, it mostly makes finding problems
+in your programs harder because the system will not point them out to you.
+This flexibility also has its advantages, though. It leaves space for a lot of
+techniques that are impossible in more rigid languages, and as you will see
+(for example in Chapter 10), it can be used to overcome some of JavaScript’s
+shortcomings. After learning the language properly and working with it for a
+while, I have learned to actually like JavaScript.
+There have been several versions of JavaScript. ECMAScript version 3 was
+the widely supported version in the time of JavaScript’s ascent to dominance,
+roughly between 2000 and 2010. During this time, work was underway on
+an ambitious version 4, which planned a number of radical improvements and
+extensions to the language. Changing a living, widely used language in such a
+6
+radical way turned out to be politically difficult, and work on the version 4 was
+abandoned in 2008, leading to a much less ambitious version 5, which made
+only some uncontroversial improvements, coming out in 2009. Then in 2015
+version 6 came out, a major update that included some of the ideas planned
+for version 4. Since then we’ve had new, small updates every year.
+The fact that the language is evolving means that browsers have to constantly
+keep up, and if you’re using an older browser, it may not support every feature.
+The language designers are careful to not make any changes that could break
+existing programs, so new browsers can still run old programs. In this book,
+I’m using the 2017 version of JavaScript.
+Web browsers are not the only platforms on which JavaScript is used. Some
+databases, such as MongoDB and CouchDB, use JavaScript as their scripting
+and query language. Several platforms for desktop and server programming,
+most notably the Node.js project (the subject of Chapter 20), provide an environment
+for programming JavaScript outside of the browser.
+Code, and what to do with it
+Code is the text that makes up programs. Most chapters in this book contain
+quite a lot of code. I believe reading code and writing code are indispensable
+parts of learning to program. Try to not just glance over the examples—read
+them attentively and understand them. This may be slow and confusing at
+first, but I promise that you’ll quickly get the hang of it. The same goes for
+the exercises. Don’t assume you understand them until you’ve actually written
+a working solution.
+I recommend you try your solutions to exercises in an actual JavaScript
+interpreter. That way, you’ll get immediate feedback on whether what you are
+doing is working, and, I hope, you’ll be tempted to experiment and go beyond
+the exercises.
+The easiest way to run the example code in the book, and to experiment with
+it, is to look it up in the online version of the book at https://eloquentjavascript.net.
+There, you can click any code example to edit and run it and to see the output
+it produces. To work on the exercises, go to https://eloquentjavascript.net/
+code, which provides starting code for each coding exercise and allows you to
+look at the solutions.
+If you want to run the programs defined in this book outside of the book’s
+website, some care will be required. Many examples stand on their own and
+should work in any JavaScript environment. But code in later chapters is
+often written for a specific environment (the browser or Node.js) and can run
+7
+only there. In addition, many chapters define bigger programs, and the pieces
+of code that appear in them depend on each other or on external files. The
+sandbox on the website provides links to Zip files containing all the scripts and
+data files necessary to run the code for a given chapter.
+Overview of this book
+This book contains roughly three parts. The first 12 chapters discuss the
+JavaScript language. The next seven chapters are about web browsers and the
+way JavaScript is used to program them. Finally, two chapters are devoted to
+Node.js, another environment to program JavaScript in.
+Throughout the book, there are five project chapters, which describe larger
+example programs to give you a taste of actual programming. In order of
+appearance, we will work through building a delivery robot, a programming
+language, a platform game, a pixel paint program, and a dynamic website.
+The language part of the book starts with four chapters that introduce the
+basic structure of the JavaScript language. They introduce control structures
+(such as the while word you saw in this introduction), functions (writing your
+own building blocks), and data structures. After these, you will be able to write
+basic programs. Next, Chapters 5 and 6 introduce techniques to use functions
+and objects to write more abstract code and keep complexity under control.
+After a first project chapter, the language part of the book continues with
+chapters on error handling and bug fixing, regular expressions (an important
+tool for working with text), modularity (another defense against complexity),
+and asynchronous programming (dealing with events that take time). The
+second project chapter concludes the first part of the book.
+The second part, Chapters 13 to 19, describes the tools that browser JavaScript
+has access to. You’ll learn to display things on the screen (Chapters 14 and
+17), respond to user input (Chapter 15), and communicate over the network
+(Chapter 18). There are again two project chapters in this part.
+After that, Chapter 20 describes Node.js, and Chapter 21 builds a small
+website using that tool.
+Typographic conventions
+In this book, text written in a monospaced font will represent elements of
+programs—sometimes they are self-sufficient fragments, and sometimes they
+just refer to part of a nearby program. Programs (of which you have already
+seen a few) are written as follows:
+8
+function factorial(n) {
+if (n == 0) {
+return 1;
+} else {
+return factorial(n - 1) * n;
+}
+}
+Sometimes, to show the output that a program produces, the expected output
+is written after it, with two slashes and an arrow in front.
+console.log(factorial(8));
+// → 40320
+Good luck!
+9
+“Below the surface of the machine, the program moves. Without
+effort, it expands and contracts. In great harmony, electrons scatter
+and regroup. The forms on the monitor are but ripples on the water.
+The essence stays invisibly below.”
+—Master Yuan-Ma, The Book of Programming
+Chapter 1
+Values, Types, and Operators
+Inside the computer’s world, there is only data. You can read data, modify
+data, create new data—but that which isn’t data cannot be mentioned. All
+this data is stored as long sequences of bits and is thus fundamentally alike.
+Bits are any kind of two-valued things, usually described as zeros and ones.
+Inside the computer, they take forms such as a high or low electrical charge,
+a strong or weak signal, or a shiny or dull spot on the surface of a CD. Any
+piece of discrete information can be reduced to a sequence of zeros and ones
+and thus represented in bits.
+For example, we can express the number 13 in bits. It works the same way
+as a decimal number, but instead of 10 different digits, you have only 2, and
+the weight of each increases by a factor of 2 from right to left. Here are the
+bits that make up the number 13, with the weights of the digits shown below
+them:
+0 0 0 0 1 1 0 1
+128 64 32 16 8 4 2 1
+So that’s the binary number 00001101. Its non-zero digits stand for 8, 4, and
+1, and add up to 13.
+Values
+Imagine a sea of bits—an ocean of them. A typical modern computer has more
+than 30 billion bits in its volatile data storage (working memory). Nonvolatile
+storage (the hard disk or equivalent) tends to have yet a few orders of magnitude
+more.
+To be able to work with such quantities of bits without getting lost, we must
+separate them into chunks that represent pieces of information. In a JavaScript
+environment, those chunks are called values. Though all values are made of bits,
+they play different roles. Every value has a type that determines its role. Some
+10
+values are numbers, some values are pieces of text, some values are functions,
+and so on.
+To create a value, you must merely invoke its name. This is convenient. You
+don’t have to gather building material for your values or pay for them. You
+just call for one, and whoosh, you have it. They are not really created from
+thin air, of course. Every value has to be stored somewhere, and if you want to
+use a gigantic amount of them at the same time, you might run out of memory.
+Fortunately, this is a problem only if you need them all simultaneously. As
+soon as you no longer use a value, it will dissipate, leaving behind its bits to
+be recycled as building material for the next generation of values.
+This chapter introduces the atomic elements of JavaScript programs, that is,
+the simple value types and the operators that can act on such values.
+Numbers
+Values of the number type are, unsurprisingly, numeric values. In a JavaScript
+program, they are written as follows:
+13
+Use that in a program, and it will cause the bit pattern for the number 13
+to come into existence inside the computer’s memory.
+JavaScript uses a fixed number of bits, 64 of them, to store a single number
+value. There are only so many patterns you can make with 64 bits, which means
+that the number of different numbers that can be represented is limited. With
+N decimal digits, you can represent 10N numbers. Similarly, given 64 binary
+digits, you can represent 264 different numbers, which is about 18 quintillion
+(an 18 with 18 zeros after it). That’s a lot.
+Computer memory used to be much smaller, and people tended to use groups
+of 8 or 16 bits to represent their numbers. It was easy to accidentally overflow
+such small numbers—to end up with a number that did not fit into the given
+number of bits. Today, even computers that fit in your pocket have plenty of
+memory, so you are free to use 64-bit chunks, and you need to worry about
+overflow only when dealing with truly astronomical numbers.
+Not all whole numbers less than 18 quintillion fit in a JavaScript number,
+though. Those bits also store negative numbers, so one bit indicates the sign of
+the number. A bigger issue is that nonwhole numbers must also be represented.
+To do this, some of the bits are used to store the position of the decimal point.
+The actual maximum whole number that can be stored is more in the range of
+11
+9 quadrillion (15 zeros)—which is still pleasantly huge.
+Fractional numbers are written by using a dot.
+9.81
+For very big or very small numbers, you may also use scientific notation by
+adding an e (for exponent), followed by the exponent of the number.
+2.998e8
+That is 2.998 × 108 = 299,800,000.
+Calculations with whole numbers (also called integers) smaller than the
+aforementioned 9 quadrillion are guaranteed to always be precise. Unfortunately,
+calculations with fractional numbers are generally not. Just as π (pi)
+cannot be precisely expressed by a finite number of decimal digits, many numbers
+lose some precision when only 64 bits are available to store them. This
+is a shame, but it causes practical problems only in specific situations. The
+important thing is to be aware of it and treat fractional digital numbers as
+approximations, not as precise values.
+Arithmetic
+The main thing to do with numbers is arithmetic. Arithmetic operations such
+as addition or multiplication take two number values and produce a new number
+from them. Here is what they look like in JavaScript:
+100 + 4 * 11
+The + and * symbols are called operators. The first stands for addition, and
+the second stands for multiplication. Putting an operator between two values
+will apply it to those values and produce a new value.
+But does the example mean “add 4 and 100, and multiply the result by 11,”
+or is the multiplication done before the adding? As you might have guessed,
+the multiplication happens first. But as in mathematics, you can change this
+by wrapping the addition in parentheses.
+(100 + 4) * 11
+For subtraction, there is the - operator, and division can be done with the /
+operator.
+12
+When operators appear together without parentheses, the order in which
+they are applied is determined by the precedence of the operators. The example
+shows that multiplication comes before addition. The / operator has the same
+precedence as *. Likewise for + and -. When multiple operators with the same
+precedence appear next to each other, as in 1 - 2 + 1, they are applied left to
+right: (1 - 2)+ 1.
+These rules of precedence are not something you should worry about. When
+in doubt, just add parentheses.
+There is one more arithmetic operator, which you might not immediately
+recognize. The % symbol is used to represent the remainder operation. X % Y
+is the remainder of dividing X by Y. For example, 314 % 100 produces 14, and
+144 % 12 gives 0. The remainder operator’s precedence is the same as that of
+multiplication and division. You’ll also often see this operator referred to as
+modulo.
+Special numbers
+There are three special values in JavaScript that are considered numbers but
+don’t behave like normal numbers.
+The first two are Infinity and -Infinity, which represent the positive and
+negative infinities. Infinity - 1 is still Infinity, and so on. Don’t put too
+much trust in infinity-based computation, though. It isn’t mathematically
+sound, and it will quickly lead to the next special number: NaN.
+NaN stands for “not a number”, even though it is a value of the number type.
+You’ll get this result when you, for example, try to calculate 0 / 0 (zero divided
+by zero), Infinity - Infinity, or any number of other numeric operations that
+don’t yield a meaningful result.
+Strings
+The next basic data type is the string. Strings are used to represent text. They
+are written by enclosing their content in quotes.
+`Down on the sea`
+"Lie on the ocean"
+'Float on the ocean'
+You can use single quotes, double quotes, or backticks to mark strings, as
+long as the quotes at the start and the end of the string match.
+13
